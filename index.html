@@ -12,28 +12,91 @@ html,body{margin:0;height:100%}
 body{background:var(--bg);color:var(--fg);font:17px/1.4 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
 [data-mode=jour]{--bg:#f1e4d3;--fg:#1c1b19;--ch:#9c4210;--ui:#eab98f;--ac:#9c4210;--mute:#6b5f52}
 [data-mode=nuit]{--bg:#0d0d0d;--fg:#fbf7ee;--ch:#f9bb8c;--ui:#26201b;--ac:#f9bb8c;--mute:#b5aa9c}
-#app{display:flex;flex-direction:column;height:100%}
+#app{display:flex;flex-direction:column;height:100%;position:relative}
 header{display:flex;align-items:center;gap:8px;padding:10px 14px;background:var(--ui);flex-wrap:wrap}
-header h1{font-size:1.15rem;margin:0;flex:1;min-width:140px}.brand{font-family:Bahnschrift,"Arial Narrow","Roboto Condensed",Impact,sans-serif;text-transform:uppercase;letter-spacing:.05em;font-weight:800;font-size:1.5rem}.brand small{display:block;font:400 .75rem system-ui,sans-serif;text-transform:none;letter-spacing:0}.logo{width:52px;height:52px;border-radius:10px}.chip{padding:4px 12px;min-height:36px;border-radius:99px}
+header h1{font-size:1.15rem;margin:0;flex:1;min-width:140px}
+.brand{font-family:Bahnschrift,"Arial Narrow","Roboto Condensed",Impact,sans-serif;text-transform:uppercase;letter-spacing:.05em;font-weight:800;font-size:1.5rem}
+.brand small{display:block;font:400 .75rem system-ui,sans-serif;text-transform:none;letter-spacing:0}
+.logo{width:52px;height:52px;border-radius:10px}
+.chip{padding:4px 12px;min-height:36px;border-radius:99px}
 button,select,input,textarea{font:inherit;color:var(--fg)}
 button{background:var(--bg);border:2px solid var(--fg);border-radius:10px;padding:8px 14px;min-height:44px;cursor:pointer}
 button.main{background:var(--fg);color:var(--bg)}
 button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid var(--ac);outline-offset:2px}
-main{flex:1;overflow:auto;padding:14px;max-width:900px;width:100%;margin:0 auto}
+main{flex:1;min-width:0;overflow:auto;padding:14px;max-width:900px;width:100%;margin:0 auto}
+#scroller{overflow-x:hidden;overscroll-behavior:contain}
 .song{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:14px 4px;border-bottom:1px solid var(--ui);cursor:pointer}
 .song b{display:block;font-size:1.1rem}.song span{color:var(--mute);font-size:.9rem}
 input[type=text],textarea{width:100%;background:var(--bg);border:2px solid var(--fg);border-radius:10px;padding:10px;margin:6px 0}
 textarea{min-height:48vh;font-family:ui-monospace,"Cascadia Mono",Menlo,Consolas,monospace;font-size:15px}
-#ed{font-family:ui-monospace,"Cascadia Mono",Menlo,Consolas,monospace;font-size:17px;overflow-x:auto;padding-bottom:240px}.cl{width:max-content;min-width:100%;margin-bottom:6px}.cr{position:relative;height:1.7em}.ck{position:absolute;top:0;padding:0;margin:0;min-height:0;height:1.6em;border:0;border-radius:4px;background:transparent;color:var(--ch);font:inherit;font-weight:700;text-decoration:underline dotted}.ck.sel,.ly span.sel{background:var(--ui)}.ly{white-space:pre}.ly span{display:inline-block;min-width:1ch;cursor:pointer;touch-action:manipulation}#pn{position:fixed;left:0;right:0;bottom:0;background:var(--ui);padding:10px 14px calc(10px + env(safe-area-inset-bottom,0px));box-shadow:0 -2px 0 var(--fg)}select{background:var(--bg);color:var(--fg);border:2px solid var(--fg);border-radius:10px;padding:8px;min-height:44px;max-width:100%}.hint{color:var(--mute);font-size:.92rem;margin:6px 0 12px}
+#ed{font-family:ui-monospace,"Cascadia Mono",Menlo,Consolas,monospace;font-size:17px;overflow-x:hidden;padding-bottom:240px;width:100%;max-width:100%}
+.cl{width:100%;min-width:0;max-width:100%;margin-bottom:6px;overflow-wrap:anywhere}
+.cr{position:relative;height:1.7em;max-width:100%;overflow:hidden}
+.ck{position:absolute;top:0;padding:0;margin:0;min-height:0;height:1.6em;border:0;border-radius:4px;background:transparent;color:var(--ch);font:inherit;font-weight:700;text-decoration:underline dotted}
+.ck.sel,.ly span.sel{background:var(--ui)}
+.ly{white-space:pre-wrap;overflow-wrap:anywhere;word-break:normal;max-width:100%}
+.ly span{display:inline-block;min-width:1ch;cursor:pointer;touch-action:manipulation}
+#pn{position:fixed;left:0;right:0;bottom:0;background:var(--ui);padding:10px 14px calc(10px + env(safe-area-inset-bottom,0px));box-shadow:0 -2px 0 var(--fg)}
+select{background:var(--bg);color:var(--fg);border:2px solid var(--fg);border-radius:10px;padding:8px;min-height:44px;max-width:100%}
+.hint{color:var(--mute);font-size:.92rem;margin:6px 0 12px}
 .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:8px 0}
 .empty{padding:40px 10px;text-align:center;color:var(--mute)}
-#sheet{font-family:ui-monospace,"Cascadia Mono",Menlo,Consolas,monospace;white-space:pre;line-height:1.35;margin:0;padding:6px 0 60vh}
+#sheet{display:block;width:100%;max-width:100%;min-width:0;box-sizing:border-box;font-family:ui-monospace,"Cascadia Mono",Menlo,Consolas,monospace;white-space:pre-wrap;overflow-wrap:anywhere;word-break:normal;line-height:1.35;margin:0;padding:6px 0 60vh}
 #sheet .c{color:var(--ch);font-weight:700}
 #bar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:8px 14px;background:var(--ui)}
 #bar label{display:flex;align-items:center;gap:6px;font-size:.9rem}
 input[type=range]{width:110px}
 .pill{padding:6px 12px;min-height:40px}
 .on{background:var(--fg);color:var(--bg)}
+
+/* Mode lecture plein écran */
+#app.reading header,
+#app.reading #bar {
+  display: none !important;
+}
+#app.reading #scroller {
+  max-width: 100%;
+  padding: 10px 16px;
+}
+#live-hud {
+  display: none;
+  position: fixed;
+  bottom: calc(10px + env(safe-area-inset-bottom, 0px));
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--ui);
+  border: 2px solid var(--fg);
+  border-radius: 99px;
+  padding: 4px 12px;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.28);
+  z-index: 100;
+  opacity: 0.92;
+  max-width: 96vw;
+}
+#app.reading #live-hud {
+  display: flex;
+}
+#live-hud button {
+  min-height: 34px;
+  padding: 4px 12px;
+  border-radius: 99px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+#live-hud label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+#live-hud input[type=range] {
+  width: 95px;
+  accent-color: var(--fg);
+}
 </style>
 </head>
 <body data-mode="soleil">
@@ -43,25 +106,26 @@ const KEY='carnet-v1';
 let mem=null;
 const load=()=>{try{const v=localStorage.getItem(KEY);return v?JSON.parse(v):{songs:[],mode:'soleil',size:20}}catch(e){return mem||{songs:[],mode:'soleil',size:20}}};
 const save=()=>{mem=S;try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
-let S=load(),view='list',cur=null,semis=0,speed=0,raf=null,lock=null;S.sets=S.sets||[];let curSet=null,pos=0;
+let S=load(),view='list',cur=null,speed=0,raf=null,lock=null;S.sets=S.sets||[];let curSet=null,pos=0;
 const $=s=>document.querySelector(s),app=$('#app');
 const esc=t=>t.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
 const CH=/^[A-G][#b]?(maj|min|dim|aug|sus|add|m|M)?[0-9]*(sus[0-9]*|add[0-9]+|\([^)]*\))*(\/[A-G][#b]?)?$/;
 const isChordLine=l=>{const t=l.trim().split(/\s+/).filter(Boolean);return t.length>0&&t.every(x=>CH.test(x)||/^[|:x\-.()%0-9]+$/.test(x))&&t.some(x=>CH.test(x))};
-const SH=['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'],FL=['C','Db','D','Eb','E','F','Gb','G','Ab','A','Bb','B'];
-const note=(n,k)=>{let i=SH.indexOf(n);if(i<0)i=FL.indexOf(n);if(i<0)return n;return (k.includes('b')?FL:SH)[(i+k.n+120)%12]};
-function tChord(t,n){if(!n||!CH.test(t))return t;const k={n,includes:()=>false};const flat=/^[A-G]b|\/[A-G]b/.test(t);const kk={n,includes:x=>flat&&x==='b'};
-return t.replace(/[A-G][#b]?/g,m=>note(m,kk))}
-function transposeLine(l,n){return l.replace(/(\S+)(\s*)/g,(m,t,s)=>{const nt=tChord(t,n),d=t.length-nt.length;return nt+(d>=0?s+' '.repeat(d):s.slice(0,Math.max(s?1:0,s.length+d)))})}
-function render(){document.body.dataset.mode=S.mode;({list:vList,edit:vEdit,play:vPlay,sets:vSets,set:vSet,chords:vChords})[view]();}
+
+function render(){
+  app.classList.remove('reading');
+  document.body.dataset.mode=S.mode;
+  ({list:vList,edit:vEdit,play:vPlay,sets:vSets,set:vSet,chords:vChords})[view]();
+}
 function modeBtns(){return ['soleil','jour','nuit'].map(m=>`<button class="pill ${S.mode===m?'on':''}" data-m="${m}" aria-label="Affichage ${m}">${{soleil:'☀️ Soleil',jour:'🎸 Jour',nuit:'🌙 Nuit'}[m]}</button>`).join('')}
 function bindModes(){document.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{S.mode=b.dataset.m;save();render()})}
+
 let filt='',q='';
 function vList(){
  app.innerHTML=`<header><img class="logo" src="data:image/jpeg;base64,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" alt="Logo Charley Duds"><h1 class="brand">Charley Duds<small>Mon carnet de scène</small></h1>${modeBtns()}<button id="sets">Concerts</button><button class="main" id="add">Ajouter une chanson</button></header>
  <main><input type="text" id="q" placeholder="Rechercher un titre ou un artiste" value="${esc(q)}" aria-label="Rechercher"><div class="row" id="chips"></div><div id="items"></div>
  <div class="row"><button id="exp">Sauvegarder (fichier)</button><button id="imp">Restaurer une sauvegarde</button><input type="file" id="file" accept=".json" hidden></div>
- <p class="hint">Tes chansons sont enregistrées sur cet appareil et restent disponibles hors connexion une fois la page ouverte. La vitesse de défilement et la tonalité choisies pour chaque chanson sont mémorisées.</p></main>`;
+ <p class="hint">Tes chansons sont enregistrées sur cet appareil et restent disponibles hors connexion une fois la page ouverte. La vitesse de défilement choisie pour chaque chanson est mémorisée.</p></main>`;
  bindModes();
  const draw=()=>{
   const cats=[...new Set(S.songs.map(s=>s.cat).filter(Boolean))].sort();
@@ -71,7 +135,7 @@ function vList(){
   const k=q.toLowerCase();
   const items=S.songs.filter(s=>(!filt||s.cat===filt)&&(s.title+' '+(s.artist||'')).toLowerCase().includes(k)).sort((a,b)=>a.title.localeCompare(b.title,'fr'));
   $('#items').innerHTML=items.length?items.map(s=>`<div class="song" data-id="${s.id}" tabindex="0" role="button"><div><b>${esc(s.title)}</b><span>${esc([s.artist,s.cat].filter(Boolean).join(' – '))}</span></div><span>${s.speed?'Vitesse '+s.speed:'Jouer'}</span></div>`).join(''):`<div class="empty"><p><b>${S.songs.length?'Aucune chanson trouvée.':'Ton carnet est vide.'}</b></p><p>${S.songs.length?'Essaie un autre mot ou une autre catégorie.':'Ajoute ta première chanson en collant le texte d’une partition (paroles avec accords).'}</p></div>`;
-  document.querySelectorAll('.song').forEach(e=>{const go=()=>{curSet=null;cur=S.songs.find(s=>s.id===e.dataset.id);semis=cur.semis||0;speed=cur.speed||0;view='play';render()};e.onclick=go;e.onkeydown=ev=>{if(ev.key==='Enter')go()}});
+  document.querySelectorAll('.song').forEach(e=>{const go=()=>{curSet=null;cur=S.songs.find(s=>s.id===e.dataset.id);speed=cur.speed||0;view='play';render()};e.onclick=go;e.onkeydown=ev=>{if(ev.key==='Enter')go()}});
  };
  draw();$('#q').oninput=e=>{q=e.target.value;draw()};
  $('#sets').onclick=()=>{view='sets';render()};$('#add').onclick=()=>{cur={id:Date.now()+'',title:'',artist:'',text:''};view='edit';render()};
@@ -79,15 +143,17 @@ function vList(){
  $('#imp').onclick=()=>$('#file').click();
  $('#file').onchange=async e=>{try{const d=JSON.parse(await e.target.files[0].text());(Array.isArray(d)?d:d.songs).forEach(x=>{if(!S.songs.some(s=>s.id===x.id))S.songs.push(x)});(d.sets||[]).forEach(x=>{if(!S.sets.some(s=>s.id===x.id))S.sets.push(x)});save();render()}catch(err){alert('Fichier illisible : choisis un fichier de sauvegarde .json.')}}
 }
+
 let dt='',sel=null;
 function parseL(text){const ls=text.replace(/\r/g,'').split('\n'),out=[];for(let i=0;i<ls.length;i++){const l=ls[i];if(isChordLine(l)){const ch=[];l.replace(/\S+/g,(m,o)=>{ch.push({c:o,n:m});return m});const nx=ls[i+1];if(nx!==undefined&&!isChordLine(nx)){out.push({ch,l:nx});i++}else out.push({ch,l:''})}else out.push({ch:[],l})}return out}
 function serL(B){return B.map(b=>{if(!b.ch.length)return b.l;let s='';[...b.ch].sort((x,y)=>x.c-y.c).forEach(k=>{const c=Math.max(k.c,s?s.length+1:0);s+=' '.repeat(c-s.length)+k.n});return s+'\n'+b.l}).join('\n')}
+
 function vChords(){
  const B=parseL(dt),old=document.querySelector('#ed'),sc=old?document.querySelector('main').scrollTop:0;
  const used={};B.forEach(b=>b.ch.forEach(k=>used[k.n]=(used[k.n]||0)+1));
  const quick=[...new Set([...Object.keys(used).sort((a,b)=>used[b]-used[a]),'Am','C','D','E','F','G','Em','Dm'])].slice(0,14);
  const ex=sel?B[sel.i].ch.find(k=>k.c===sel.c):null;
- app.innerHTML=`<header><h1>Accords – ${esc(cur.title)}</h1><button id="cx">Annuler</button><button class="main" id="cs">Enregistrer</button></header><main><p class="hint">Touche une lettre des paroles pour y placer un accord. Touche un accord pour le corriger, le décaler d’une lettre ou le supprimer.</p><div id="ed">${B.map((b,i)=>`<div class="cl"><div class="cr">${b.ch.map((k,j)=>`<button class="ck ${sel&&sel.i===i&&sel.c===k.c?'sel':''}" data-i="${i}" data-j="${j}" style="left:${k.c}ch">${esc(k.n)}</button>`).join('')}</div><div class="ly">${[...(b.l+' '.repeat(8))].map((x,c)=>`<span data-i="${i}" data-c="${c}" class="${sel&&sel.i===i&&sel.c===c?'sel':''}">${x===' '?'&nbsp;':esc(x)}</span>`).join('')}</div></div>`).join('')}</div></main>${sel?`<div id="pn"><p class="hint" style="margin:0 0 6px">${ex?'Corriger l’accord '+esc(ex.n):'Nouvel accord à la lettre '+(sel.c+1)}</p><div class="row" style="margin:0 0 6px"><input type="text" id="cn" style="width:8em;margin:0" value="${ex?esc(ex.n):''}" placeholder="Ex. Am7" aria-label="Nom de l’accord" autocapitalize="characters"><button class="main" id="ok2">${ex?'Modifier':'Placer'}</button>${ex?'<button id="mL" aria-label="Décaler à gauche">◀</button><button id="mR" aria-label="Décaler à droite">▶</button><button id="dl">Supprimer</button>':''}<button id="cc">Fermer</button></div><div class="row" style="margin:0">${quick.map(q=>`<button class="pill" data-q="${esc(q)}">${esc(q)}</button>`).join('')}</div></div>`:''}`;
+ app.innerHTML=`<header><h1>Accords – ${esc(cur.title)}</h1><button id="cx">Annuler</button><button class="main" id="cs">Enregistrer</button></header><main><p class="hint">Touche une lettre des paroles pour y placer un accord. Touche un accord pour le corriger, le décaler d’une lettre ou le supprimer.</p><div id="ed" style="font-size:${S.size}px">${B.map((b,i)=>`<div class="cl"><div class="cr">${b.ch.map((k,j)=>`<button class="ck ${sel&&sel.i===i&&sel.c===k.c?'sel':''}" data-i="${i}" data-j="${j}" style="left:${k.c}ch">${esc(k.n)}</button>`).join('')}</div><div class="ly">${[...(b.l+' '.repeat(8))].map((x,c)=>`<span data-i="${i}" data-c="${c}" class="${sel&&sel.i===i&&sel.c===c?'sel':''}">${x===' '?'&nbsp;':esc(x)}</span>`).join('')}</div></div>`).join('')}</div></main>${sel?`<div id="pn"><p class="hint" style="margin:0 0 6px">${ex?'Corriger l’accord '+esc(ex.n):'Nouvel accord à la lettre '+(sel.c+1)}</p><div class="row" style="margin:0 0 6px"><input type="text" id="cn" style="width:8em;margin:0" value="${ex?esc(ex.n):''}" placeholder="Ex. Am7" aria-label="Nom de l’accord" autocapitalize="characters"><button class="main" id="ok2">${ex?'Modifier':'Placer'}</button>${ex?'<button id="mL" aria-label="Décaler à gauche">◀</button><button id="mR" aria-label="Décaler à droite">▶</button><button id="dl">Supprimer</button>':''}<button id="cc">Fermer</button></div><div class="row" style="margin:0">${quick.map(q=>`<button class="pill" data-q="${esc(q)}">${esc(q)}</button>`).join('')}</div></div>`:''}`;
  document.querySelector('main').scrollTop=sc;
  const act=fn=>{const X=parseL(dt);fn(X);dt=serL(X);render()};
  const put=n=>{n=n.trim();const {i,c}=sel;sel=null;act(X=>{const ch=X[i].ch,k=ch.find(x=>x.c===c);if(k){if(n)k.n=n;else ch.splice(ch.indexOf(k),1)}else if(n)ch.push({c,n})})};
@@ -98,13 +164,16 @@ function vChords(){
  $('#cs').onclick=()=>{cur.text=dt;sel=null;save();view='play';render()};
  if(sel){$('#ok2').onclick=()=>put($('#cn').value);$('#cn').onkeydown=e=>{if(e.key==='Enter')put(e.target.value)};$('#cc').onclick=()=>{sel=null;render()};if(ex){$('#mL').onclick=()=>mv(-1);$('#mR').onclick=()=>mv(1);$('#dl').onclick=()=>put('')}document.querySelectorAll('[data-q]').forEach(b=>b.onclick=()=>put(b.dataset.q))}
 }
-function openAt(){cur=S.songs.find(s=>s.id===curSet.ids[pos]);semis=cur.semis||0;speed=cur.speed||0;view='play';render()}
+
+function openAt(){cur=S.songs.find(s=>s.id===curSet.ids[pos]);speed=cur.speed||0;view='play';render()}
+
 function vSets(){
  app.innerHTML=`<header><h1>Mes concerts</h1><button id="back">Carnet</button><button class="main" id="new">Nouveau concert</button></header><main>${S.sets.length?S.sets.map(s=>`<div class="song" data-id="${s.id}" tabindex="0" role="button"><div><b>${esc(s.name)}</b><span>${s.ids.length} chanson${s.ids.length>1?'s':''}</span></div><span>Ouvrir</span></div>`).join(''):'<div class="empty"><p><b>Aucun concert pour l’instant.</b></p><p>Crée une liste de morceaux dans l’ordre où tu les joueras.</p></div>'}</main>`;
  $('#back').onclick=()=>{view='list';render()};
  $('#new').onclick=()=>{const n=prompt('Nom du concert (ex. Terrasse du 14 juillet)');if(!n||!n.trim())return;curSet={id:Date.now()+'',name:n.trim(),ids:[]};S.sets.push(curSet);save();view='set';render()};
  document.querySelectorAll('.song').forEach(e=>{const go=()=>{curSet=S.sets.find(s=>s.id===e.dataset.id);view='set';render()};e.onclick=go;e.onkeydown=ev=>{if(ev.key==='Enter')go()}});
 }
+
 function vSet(){
  curSet.ids=curSet.ids.filter(i=>S.songs.some(s=>s.id===i));
  const T=i=>S.songs.find(s=>s.id===i),L=curSet.ids;
@@ -123,6 +192,7 @@ function vSet(){
  $('#ren').onclick=()=>{const n=prompt('Nouveau nom',curSet.name);if(n&&n.trim()){curSet.name=n.trim();sv()}};
  $('#rm').onclick=()=>{if(confirm('Supprimer ce concert ? Les chansons restent dans ton carnet.')){S.sets=S.sets.filter(s=>s!==curSet);save();view='sets';render()}};
 }
+
 function vEdit(){
  const isNew=!S.songs.some(s=>s.id===cur.id);
  app.innerHTML=`<header><h1>${isNew?'Nouvelle chanson':'Modifier la chanson'}</h1><button id="back">Annuler</button><button class="main" id="ok">Enregistrer</button></header>
@@ -135,27 +205,70 @@ function vEdit(){
   cur.title=t;cur.artist=$('#a').value.trim();cur.cat=$('#g').value.trim();cur.text=x;if(isNew)S.songs.push(cur);save();view='list';render()};
  if($('#del'))$('#del').onclick=()=>{if(confirm('Supprimer cette chanson ?')){S.songs=S.songs.filter(s=>s.id!==cur.id);save();view='list';render()}}
 }
-function sheetHTML(){return cur.text.replace(/\r/g,'').split('\n').map(l=>isChordLine(l)?`<span class="c">${esc(transposeLine(l,semis))}</span>`:esc(l)).join('\n')}
+
+function sheetHTML(){return cur.text.replace(/\r/g,'').split('\n').map(l=>isChordLine(l)?`<span class="c">${esc(l)}</span>`:esc(l)).join('\n')}
+
 function vPlay(){
  app.innerHTML=`<header><img class="logo" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAkGBwgHBgkIBwgKCgkLDRYPDQwMDRsUFRAWIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5Ojf/2wBDAQoKCg0MDRoPDxo3JR8lNzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzf/wAARCACAAIADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD2nuPWj+lIMUdzWZY4UZzRQOKoQdjS+9JnmlFABRQKKACg80UhoAO9FIT6UZpABpDQaKAA80lFHU0hi0vtSdvel6UxBWP4yvrnS/CerX9i4S5trV5I2Kg4YDIODwa2AaivLaK7tJra4QPDKhR1PRlIwRQM+Zf+Fu+NM5/tSP8A8BY/8K6/w78UPE2q6BdQwCCfWo5Imicwgh0LhGXYOrcg8difSvNPG3hm58K69Pp86sYclreUjiSPsfr2PvWPaXElvcRyxuyPGdyspwVI5BB9adk1dCu07M+zLCd5baIXPlpdeUjTRI2djEc++M5xmrNebfCbW7fxPcajq00102qBIoZI5mBWOEDK7MADBbeT37V6R2pIbFrlvGvjrR/CFsGvpDLdOP3VrFy7e5/uj3NdLPIsUTyMQoUZLMcAfWuP8R6ZpEkdh/aaQiNL5JjJLj5m5PzE9cnGfpUTnylQhzanl+s/FfxLc62be0kh0tFGPKaNZAD1yzMMjj0HbvXUfDT4rf2vcQ6P4l2xX8nEN1gKsxJ4UjGFOOnY/WvHPE+o/br66mzGzT3MkhYYLHLN+PGapXF99qltGCbJIgqlgeuMY/lVpaCb1Pske1H1qK1z5KZ54FS9qSd1cTVnYPek70EUGgA64NKKAKBTAUCl7c0gzmlpiOc8b+ELDxbpTWl4u2VctDMo+aNvUf1Hevl3xHoV74d1aTTtSXa6cq6/dkXsy+3/AOqvsWvEv2h5YY4tPtXssSs5lhusjp0dPX+6aS0eg3qtSr+zz5g1fVApIiS2QcZ+YlyQT+te7egr52+A+tRaf4hls52VUvEEYJ/vg5X+o/EV9EZHWjqw6I5P4laZqesaBFZaR5LSNcxvLDNjbLGM5HPHBwefSuZ+LE2jSeEf7NnuJITHtMGwZ+ZQQAfbHX6103j9dSt7SHVrG6cW2nBprmzQiM3IGCAZOqqMZI7gYrxL4uast3rwtFVd0ABl2/dJIz/Wo1crFqyjc4vULRbNbZST5rxB5B6ZOR+mKrQf66P/AHh/Op9QWU3rmZ9zOc7j0wafLZT2N5GsyAgOCG6qwzWq2MnufY9vxCn0FS0yD/Vr9KfWa2Le4U00tIfemIcOlH1oHTIpaYBRRijpTELXlv7QWnrc+E7W8J2ta3I5254ZSMe3IFeonvXP+PdFPiDwnqOmooMssRMWf745X9QKT0Gj5PtJptOvYp42KOuGVv1B/r+FfWHgfX08SeHLXUFI80rsnQfwyDhh/X8a+X7u2D6EjSAJe2czQyxtw4TPcdeG4/Gu5+B3ij+zNb/sy4kxbXuFAJ4WUfdP4jIofcF2PoC7toby1mtrmNZIZkKSIwyGU8EH2rwrWfgxr95rd5cR39pJbyyl0kldg5BPQgDqOle9jkZpKXoB8n+NPDN/od48Ey+ctqqRyTxqduSMjr9D+RrqfhfZTeJHvvPVfkhWCOR49yhmGO/UhQW/CvSfEOn2tx4k1Sz1Fd1rqGlbnP8Ad8tjyPcZz+FM+EugjTvDto0o+cBmAxjDvgsT6nG1f+An1qFO6saONnc7+NQEAHQDFO9qBQeKozEpM0ppO1Ax46ZopAe9BqhDjmjOOlJ+lGaYC5oOCORmkJ4o6cUgPPrzwmJPiVJc/ItleWazyJsU+ZJEQhU57FZASfavAb6wutCvbaZiVjuE8+2lXpgMQD9QVr6qnYf8JPbjsmnzMT9ZIx/Q14x46t4JfhToErQF544o3jkVeV3Fs5PoR/IelStGU9Ud58NviNZ+KmXTJIpY9Rhtw8jMBskIwG2857g813/evkjwRrJ8M+K7O+uRJHHGxScYOQjDBOPbIOPavq2wu0u7ZJUZWyATtOQcjII9j1oejsLdXOe8XQqNb0a4kTfDIZbaVcZ3BlyB+YroNNhEFpGijGB0zn3P61zniPVNM1SzgayvYZHs9Tg3lW6HzApHv97HFdP5saQqxdVTH3icCoVuY0d+VE2eKSkzSA8e9WZinrQenvSUUAPGfxpc0maTIxzTEPzVe7uVtIt7AsTwqL1Y1NnisrXz/o647BufwqKknGLaLpxUpJMltNVE04hmt3gcqWXLBg2OSMjviiPVVktpJxbSgxuF2FlycjOc5xTJBatdwhpwLhVDLFnk/KR/LNZsXmiKXZtMJdS5wchscDrWUqko7+ZtCnGe3kaUktuRHqYhkaSWAQhdwBCMdxHp+NYVz4a0W60XT91rcta2caxQW3nHgA4w2Tg4x1NaUsirYaepYKpjXJJwBnAz/Oi2b/iXTR5+5cZ+gbDf1NDqO7XkEaasn5nL3PgHwrq2oRte6XPFK42qwmKqx64+U9evWug0LSLCLTJdKtUu4baOPycNOS2xs8Bskjvj0qxZK80tnGxQGAKwwfvKvf8AUVPo/E11/wAA/wDZqIycmkwnFRTa8jlH8E+G47mMJpd+TbOChS9IGVIIOM+oHWumcWd2I7O6tJfKuFBxI3y9M4IzweD+VNLXC38zWnltLhso+eRuHPUd6s6tEHWOTJXa3UdfX/H86XM2uZ9A5UmorqWLO8F0ZAsLoI8AMxBDZ9Mf55qz9aqaZH5dqhI+aT5z7Z6D8sVaraN7K5jK13YdmmmjNGaoRJ3pKQHJNKWPOaYheRVTUrQ3cOwHBGf1GKs4zS9eRUySkrMcW4u6Mu3s7hpUku5FZkHUDGTjA4/Gq7KlpDLb3E8SSyMjgZJ4Ax6exrb71l3+TqMA/hZkVh6gk1jOCiv66m0JuT/roR2sUcscEgnge3hjCSEN0wOfpye9At9glIngEc5TyyZB8xUn8+CKiVFFxeqoG0wkFT3w4xn86iulX+y4/lXiSTHHT5u1ReO9v62NLSva/wDW5YdI7KexaW4iR4lCuCTkjGDgAfT8qZCsmya4s76JVHDsQMAjpnI461KcNqU4PPEh/LAFV1RngnYANtlBwemdgwTQ3rf1BLS1+xYjhknne5sbuLaSVLIQ+QTnHTirc9vPNZJFIyGcAb26AnFVNNVJbg3UGEGzy5Y8YZW4OD9OefQ1qA1rGKcfUynNqSfYZbxmOCKNsZRFU49hipKCc0VqZAaKM0ZPSgAHPtml/CjGKMd+9MQozxigE9T0pevakx60AJnmsrVX8rUIZNrMEKMQvUgE9K1sc0jID2qJxcloXCSi9TGt45ZpLmYIQrxsAPcsDj9KrtvmtxbJG/mLI3J6HLZH/wBeuh2DAzSbAOQOTWfsfP8Arc09vrt/VrGNcs1vqEkjRsyOHA24/ixg8/SoY3uFt53t3K7ZRuAAO75V457VulATj1pAg6Y+tHsnfRh7ZWs0ZdkN+oGaGNo4yhDKfqNoP45rVAOKCgA4FO21pCPKrGc5czuJ2waOnWlx60gGaogD1pCDS4/Ol44oGf/Z" alt="Charley Duds" style="width:40px;height:40px"><h1>${esc(cur.title)}${cur.artist?' – '+esc(cur.artist):''}</h1><button id="back">Carnet</button><button id="edit">Modifier</button><button id="ch">Accords</button>${curSet?`<button id="pv" aria-label="Chanson précédente">‹</button><b>${pos+1}/${curSet.ids.length}</b><button class="main" id="nx">Suivante ›</button>`:''}</header>
  <div id="bar">${modeBtns()}
- <span class="row" style="margin:0"><button class="pill" id="dn" aria-label="Descendre d’un demi-ton">−</button><b id="tn"></b><button class="pill" id="up" aria-label="Monter d’un demi-ton">+</button></span>
  <span class="row" style="margin:0"><button class="pill" id="sm" aria-label="Réduire les caractères">A−</button><button class="pill" id="sp" aria-label="Agrandir les caractères">A+</button></span>
- <label>Vitesse <input type="range" id="sr" min="0" max="60" value="${speed}" aria-label="Vitesse de défilement"><b id="sv">${speed}</b></label><button class="pill main" id="go">Lecture</button></div>
- <main id="scroller"><pre id="sheet" style="font-size:${S.size}px">${sheetHTML()}</pre></main>`;
- bindModes();const tn=()=>$('#tn').textContent=(semis>0?'+':'')+semis+' ton';tn();
- const re=()=>{$('#sheet').innerHTML=sheetHTML();tn();cur.semis=semis;save()};
- $('#up').onclick=()=>{semis=(semis+1)%12;re()};$('#dn').onclick=()=>{semis=(semis+11)%12;re()};
+ <label>Vitesse <input type="range" id="sr" min="0" max="60" value="${speed}" aria-label="Vitesse de défilement"><b id="sv">${speed}</b></label>
+ <button class="pill main" id="go">▶ Lecture</button></div>
+ <main id="scroller"><pre id="sheet" style="font-size:${S.size}px">${sheetHTML()}</pre></main>
+ <div id="live-hud">
+   <button id="hud-back">Carnet</button>
+   <label>Vit. <input type="range" id="hud-sr" min="1" max="60" value="${speed||12}" aria-label="Vitesse de défilement"><span id="hud-sv">${speed||12}</span></label>
+   <button class="main" id="hud-pause">⏸ Pause</button>
+ </div>`;
+ 
+ bindModes();
  $('#sp').onclick=()=>{S.size=Math.min(60,S.size+2);$('#sheet').style.fontSize=S.size+'px';save()};
  $('#sm').onclick=()=>{S.size=Math.max(12,S.size-2);$('#sheet').style.fontSize=S.size+'px';save()};
- $('#sr').oninput=e=>{speed=+e.target.value;cur.speed=speed;$('#sv').textContent=speed;save()};
- $('#back').onclick=()=>{stop();view=curSet?'set':'list';render()};if(curSet){const mv=d=>{const n=pos+d;if(n<0||n>=curSet.ids.length)return;stop();pos=n;openAt()};$('#pv').onclick=()=>mv(-1);$('#nx').onclick=()=>mv(1)}$('#edit').onclick=()=>{stop();view='edit';render()};$('#ch').onclick=()=>{stop();dt=cur.text;sel=null;view='chords';render()};
+ 
+ const updateSpeed = val => {
+   speed = +val;
+   cur.speed = speed;
+   $('#sr').value = speed;
+   $('#sv').textContent = speed;
+   $('#hud-sr').value = speed || 12;
+   $('#hud-sv').textContent = speed || 12;
+   save();
+ };
+ $('#sr').oninput = e => updateSpeed(e.target.value);
+ $('#hud-sr').oninput = e => updateSpeed(e.target.value);
+
+ const goBack = () => { stop(); view = curSet ? 'set' : 'list'; render(); };
+ $('#back').onclick = goBack;
+ $('#hud-back').onclick = goBack;
+
+ if(curSet){const mv=d=>{const n=pos+d;if(n<0||n>=curSet.ids.length)return;stop();pos=n;openAt()};$('#pv').onclick=()=>mv(-1);$('#nx').onclick=()=>mv(1)}
+ $('#edit').onclick=()=>{stop();view='edit';render()};
+ $('#ch').onclick=()=>{stop();dt=cur.text;sel=null;view='chords';render()};
+ 
  let on=false,last=0,acc=0;
  const step=t=>{if(!on)return;acc+=(t-last)/1000*speed;last=t;const px=Math.floor(acc);if(px){$('#scroller').scrollTop+=px;acc-=px}raf=requestAnimationFrame(step)};
- const start=async()=>{if(on)return;on=true;if(!speed){speed=12;cur.speed=12;$('#sr').value=12;$('#sv').textContent=12;save()}$('#go').textContent='Pause';last=performance.now();raf=requestAnimationFrame(step);try{lock=await navigator.wakeLock.request('screen')}catch(e){}};
- window.stop=()=>{on=false;cancelAnimationFrame(raf);try{lock&&lock.release()}catch(e){}};
- const pause=()=>{on=false;cancelAnimationFrame(raf);if($('#go'))$('#go').textContent='Lecture'};
- $('#go').onclick=()=>on?pause():start();
+ const start=async()=>{
+   if(on)return;
+   on=true;
+   if(!speed) updateSpeed(12);
+   app.classList.add('reading');
+   last=performance.now();
+   raf=requestAnimationFrame(step);
+   try{lock=await navigator.wakeLock.request('screen')}catch(e){}
+ };
+ window.stop=()=>{
+   on=false;
+   cancelAnimationFrame(raf);
+   app.classList.remove('reading');
+   try{lock&&lock.release()}catch(e){}
+ };
+ const pause=()=>{
+   on=false;
+   cancelAnimationFrame(raf);
+   app.classList.remove('reading');
+ };
+ $('#go').onclick=start;
+ $('#hud-pause').onclick=pause;
  $('#sheet').onclick=()=>on?pause():0;
 }
 render();
